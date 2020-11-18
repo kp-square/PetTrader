@@ -1,0 +1,181 @@
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-head p-3"><h3>Add Pet</h3></div>
+      <div class="card-body">
+        <form [formGroup]="addPetForm" (ngSubmit)="onSubmit()">
+          <tabset #staticTabs>
+            <tab heading="Basic Info" formGroupName="basicInfo">
+              <hr />
+              <div class="form-group col-12" >
+                <label>For sell or for adoption</label><span class="error-block">*</span><br>
+                <input class="radio-button" type="radio" formControlName="radio" value="sell"><span class="radio-but">sell</span>
+                <input class="radio-button" type="radio" formControlName="radio" value="adopt" ><span class="radio-but">adopt</span>
+                <div *ngIf="getRadio().invalid && basicInfoSubmitted" class="error-block">Select one of them</div>
+              </div>
+
+              <div class="form-group col-12">
+                <label for="type" class="form-label">Type</label><span class="error-block">*</span>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="type"
+                />
+                <div *ngIf="getType().invalid && basicInfoSubmitted" class="error-block">provide pet type eg. cat</div>
+              </div>
+
+              <div class="form-group col-12">
+                <label for="breed" class="form-label">Breed</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="breed"
+                />
+              </div>
+
+              <div class="form-group col-12">
+                <label for="num" class="form-label">Number</label><span class="error-block">*</span>
+                <input
+                  type="number"
+                  class="form-control"
+                  formControlName="counts"
+                />
+                <div *ngIf="getCounts().invalid && basicInfoSubmitted" class="error-block">provide number of pets</div>
+              </div>
+
+              <div class="form-group col-12">
+                <label for="age" class="form-label">age</label><span class="error-block">*</span>
+                <select class="form-control" formControlName="age">
+                  <option value="young">young</option>
+                  <option value="mid age">mid-age</option>
+                  <option value="old">old</option>
+                </select>
+                <div *ngIf="getAge().invalid && basicInfoSubmitted" class="error-block">select the age</div>
+              </div>
+
+              <div class="form-group col-12">
+                <label for="birthDate" class="form-label"
+                  >price per pet (in USD)</label
+                ><span class="error-block">*</span>
+                <input
+                  type="number"
+                  class="form-control"
+                  min="0.00"
+                  max="10000.00"
+                  step="0.01"
+                  formControlName="price"
+                />
+                <div *ngIf="getPrice().invalid && basicInfoSubmitted" class="error-block">provide pet type eg. cat</div>
+              </div>
+
+              <div class="form-group col-12">
+                <label class="form-label">Description</label
+                ><span class="error-block">*</span>
+                <textarea
+                  type="text"
+                  class="form-control"
+                  formControlName="description"
+                  rows="6"></textarea>
+                <div *ngIf="getDescription().invalid && basicInfoSubmitted" class="error-block">provide short description</div>
+              </div>
+
+              <div class="col-12">
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  (click)="selectTab(1)"
+                >
+                  Next
+                </button>
+              </div>
+            </tab>
+
+            <tab heading="Add location" formGroupName="addLocation">
+              <hr />
+              <div class="form-group col-12">
+                <label for="country" class="form-label">Country</label><span class="error-block">*</span>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="country"
+                />
+                <div *ngIf="getCountry().invalid && addLocationSubmitted" class="error-block">provide country name</div>
+              </div>
+
+              <div class="form-group col-12">
+                <label for="city" class="form-label">City/town</label><span class="error-block">*</span>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="city"
+                />
+                <div *ngIf="getCity().invalid && addLocationSubmitted" class="error-block">provide your city/town</div>
+              </div>
+
+              <div class="col-12">
+                <button
+                  type="button"
+                  class="btn btn-primary ml"
+                  (click)="selectTab(0)"
+                >
+                  Back
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-primary ml-4"
+                  (click)="selectTab(2)"
+                >
+                  Next
+                </button>
+              </div>
+            </tab>
+            <tab heading="Add Photos" formGroupName="addPhotos">
+              <hr />
+              <div class="form-group col-12">
+                <label for="image" class="form-label"
+                  >Upload Thumbnail Image</label
+                >
+                <input
+                  type="file"
+                  accept="image/*"
+                  class="form-control"
+                  formControlName="petImage"
+                />
+              </div>
+
+              <div class="form-group col-12">
+                <label for="image" class="form-label"
+                  >Upload Secondary Images</label
+                >
+                <input
+                  type="file"
+                  accept="image/*"
+                  class="form-control"
+                  formControlName="extraImages"
+                />
+              </div>
+
+              <div class="col-12">
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  (click)="selectTab(1)"
+                >
+                  Back
+                </button>
+                <button type="reset" class="btn btn-secondary ml-4">
+                  Cancel
+                </button>
+                <button type="submit" class="btn btn-primary ml-4">Add</button>
+              </div>
+            </tab>
+          </tabset>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+

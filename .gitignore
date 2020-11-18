@@ -1,0 +1,11 @@
+Frontend/node_modules/
+node_modules/
+*.sln
+Backend/bin/
+bin/
+.vscode
+.vs
+.git
+.cache/
+*.cache
+*.dll

@@ -1,0 +1,79 @@
+<button (click)="goBack()" class="btn btn-primary">back</button>
+<div class="card col-12">
+  <div class="row">
+    <div class="col-sm-6">
+      <div>
+        <h4>cat</h4>
+        <h5>Kathmandu, Nepal</h5>
+      </div>
+      <div>
+        <img class="pet-detail-img" src="{{petImg}}" alt="whatever" />
+      </div>
+      <div>
+        <ul>
+          <div *ngFor = "let img of images" ></div>
+          <button *ngFor = "let img of images" class="img-btn" (click)="changeImage($event)">
+            <img src="assets/images/{{img}}" id="{{img}}" class="img-btn-img" alt="tf">
+          </button>
+          <!-- <button class="col-2" id="img1" (click)="changeImage($event)"> <img class="img-btn" src="{{images[0]}}" alt="img"> </button>
+          <button class="col-2" id="img2" (click)="changeImage($event)"> <img class="img-btn" src="{{images[1]}}" alt="img">  </button>
+          <button class="col-2" id="img3" (click)="changeImage($event)"> <img class="img-btn" src="{{images[2]}}" alt="img">  </button>
+          <button class="col-2" id="img4" (click)="changeImage($event)"> <img class="img-btn" src="{{images[3]}}" alt="img">  </button> -->
+        </ul>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div>Price: {{pet.price | currency}}</div>
+      <div>contact Now</div>
+    </div>
+  </div>
+  <div>
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="card">
+          <div class="card-body">
+            <div>date posted: {{pet.addedOn | date:'mediumDate'}}</div>
+            <div>breed: {{pet.breed}}</div>
+            <div>age: {{pet.age}}</div>
+            <div>color:</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="card">
+          <div class="card-body">
+            <div>size:</div>
+            <div>weight:</div>
+            <div>sex:</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card col-12">
+    <div class="card-head"><h3>Description</h3></div>
+    <div class="card-body">
+      <p>
+        New had happen unable uneasy. Drawings can followed improved out
+        sociable not. Earnestly so do instantly pretended. See general few
+        civilly amiable pleased account carried. Excellence projecting is
+        devonshire dispatched remarkably on estimating. Side in so life past.
+        Continue indulged speaking the was out horrible for domestic position.
+        Seeing rather her you not esteem men settle genius excuse. Deal say over
+        you age from. Comparison new ham melancholy son themselves.
+        <br />
+        Was certainty remaining engrossed applauded sir how discovery. Settled
+        opinion how enjoyed greater joy adapted too shy. Now properly surprise
+        expenses interest nor replying she she. Bore tall nay many many time yet
+        less. Doubtful for answered one fat indulged margaret sir shutters
+        together. Ladies so in wholly around whence in at. Warmth he up giving
+        oppose if. Impossible is dissimilar entreaties oh on terminated. Earnest
+        studied article country ten respect showing had. But required offering
+        him elegance son improved informed.
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- https://www.youtube.com/watch?v=dyzyfp77o8M&list=PL_NVFNExoAxclqXo9fLAeP0G2Qp56Fu8C&index=29 -->

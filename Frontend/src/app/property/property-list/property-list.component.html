@@ -1,0 +1,47 @@
+<div class="row">
+  <form [formGroup]="filterForm" (ngSubmit)="onFilter()">
+    <div class="col-sm-12">
+      <div class="filter-block">
+        <label for="filterBy">Filter By</label>
+        <select class='filter-box' formControlName="filterBy">
+          <option value="type">Type of Pet</option>
+          <option value="city">City</option>
+        </select>
+
+        <input type="text" class='filter-box' formControlName="filterName" />
+      </div>
+
+      <div class= "filter-block">
+        <label for="filterBy">Sort By</label>
+        <select class='filter-box' formControlName="sortBy">
+          <option value="price">Price</option>
+          <option value="addedOn">Date</option>
+        </select>
+      </div>
+
+      <div class="filter-block">
+        <label for="filterBy">Sort Order</label>
+        <select class='filter-box' formControlName="sortOrder">
+          <option value="asc">ascending</option>
+          <option value="desc">descending</option>
+        </select>
+      </div>
+
+      <button type="submit" class="btn-primary filter-box">filter</button>
+      <button type="reset" class="btn-secondary filter-box" (click)="onClear()">Clear</button>
+    </div>
+  </form>
+</div>
+
+<div class="row">
+  <div
+    *ngFor="
+      let Property of properties
+        | filter: filterString:filterAttrib
+        | sort: [sortAttrib, sortOrder]
+    "
+    class="shadow-lg col-sm-4 p-3"
+  >
+    <app-property-card [propertyName]="Property"></app-property-card>
+  </div>
+</div>

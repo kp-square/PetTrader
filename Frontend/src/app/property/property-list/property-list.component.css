@@ -1,0 +1,16 @@
+.filter-block{
+  display: inline-block;
+  margin-right: 25px;
+  font-weight: 600;
+}
+
+.filter-box{
+  height: 30px;
+  margin-left: 5px;
+}
+
+.btn-primary, .btn-secondary{
+  border-radius: 5px;
+  width: 60px;
+  border: none;
+}

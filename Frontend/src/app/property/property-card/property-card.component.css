@@ -1,0 +1,29 @@
+
+.image-wrapper{
+  overflow: hidden;
+  position: relative;
+}
+
+
+.card:hover img{
+  transform: scale(1.2,1.2);
+  transition-duration: 500ms;
+  transition-timing-function: ease-out;
+  height: 250px;
+
+}
+
+.card img{
+  transform: scale(1,1);
+  transition-duration: 500ms;
+  transition-timing-function: ease-out;
+  height: 250px;
+}
+
+.card-btn{
+  border:none;
+  text-align: left;
+  background-color: white;
+}
+
+
