@@ -58,7 +58,7 @@ namespace Backend.Migrations
                     b.Property<string>("Image")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("PetCollectionId")
+                    b.Property<int>("PetOwnerId")
                         .HasColumnType("int");
 
                     b.Property<double>("Price")
@@ -74,27 +74,9 @@ namespace Backend.Migrations
 
                     b.HasKey("PetId");
 
-                    b.HasIndex("PetCollectionId");
+                    b.HasIndex("PetOwnerId");
 
                     b.ToTable("Pets");
-                });
-
-            modelBuilder.Entity("Backend.Models.PetCollection", b =>
-                {
-                    b.Property<int>("CollectionId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("CollectionOwnerId")
-                        .HasColumnType("int");
-
-                    b.HasKey("CollectionId");
-
-                    b.HasIndex("CollectionOwnerId")
-                        .IsUnique();
-
-                    b.ToTable("PetCollections");
                 });
 
             modelBuilder.Entity("Backend.Models.Transaction", b =>
@@ -160,23 +142,17 @@ namespace Backend.Migrations
 
                     b.HasKey("UserId");
 
+                    b.HasIndex("Email")
+                        .IsUnique();
+
                     b.ToTable("Users");
                 });
 
             modelBuilder.Entity("Backend.Models.Pet", b =>
                 {
-                    b.HasOne("Backend.Models.PetCollection", "PetCollection")
+                    b.HasOne("Backend.Models.User", "PetOwner")
                         .WithMany("Pets")
-                        .HasForeignKey("PetCollectionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Backend.Models.PetCollection", b =>
-                {
-                    b.HasOne("Backend.Models.User", "CollectionOwner")
-                        .WithOne("Pet_collection")
-                        .HasForeignKey("Backend.Models.PetCollection", "CollectionOwnerId")
+                        .HasForeignKey("PetOwnerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

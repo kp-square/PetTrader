@@ -2,6 +2,7 @@
 using Backend.Data;
 using Backend.Dtos;
 using Backend.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 
@@ -37,6 +38,7 @@ namespace Backend.Controllers
         }
 
         // POST: api/Pet
+        [Authorize]
         [HttpPost]
         public ActionResult<PetDetailReadDto> WritePet(PetWriteDto pet)
         {
@@ -47,6 +49,7 @@ namespace Backend.Controllers
         }
 
         // PUT: api/Pet/5
+        [Authorize]
         [HttpPut("{id}")]
         public ActionResult UpdatePet(int id, PetWriteDto updated)
         {
@@ -63,6 +66,7 @@ namespace Backend.Controllers
         }
 
         // DELETE: api/ApiWithActions/5
+        [Authorize]
         [HttpDelete("{id}")]
         public ActionResult Delete(int id)
         {

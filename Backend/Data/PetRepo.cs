@@ -49,9 +49,9 @@ namespace Backend.Data
             return _petsContext.Pets.FirstOrDefault(p => p.PetId == id);
         }
 
-        public IEnumerable<Pet> GetPetsByPetCollectionId(int id)
+        public IEnumerable<Pet> GetPetsByPetOwnerId(int id)
         {
-            return _petsContext.Pets.Where(pet => pet.PetCollectionId == id);
+            return _petsContext.Pets.Where(pet => pet.PetOwnerId == id);
         }
 
 

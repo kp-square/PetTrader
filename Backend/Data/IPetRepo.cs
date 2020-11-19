@@ -9,7 +9,7 @@ namespace Backend.Data
 
         IEnumerable<Pet> GetAllUnsoldPets();
 
-        IEnumerable<Pet> GetPetsByPetCollectionId(int id);
+        IEnumerable<Pet> GetPetsByPetOwnerId(int id);
 
         Pet GetPetById(int id);
 

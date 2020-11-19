@@ -12,15 +12,15 @@ namespace Backend.Data
 
         protected override void OnModelCreating(ModelBuilder modelbuilder)
         {
-            modelbuilder.Entity<PetCollection>()
+            /*modelbuilder.Entity<PetCollection>()
                 .HasOne(d => d.CollectionOwner)
                 .WithOne(p => p.Pet_collection)
-                .HasForeignKey<PetCollection>(z => z.CollectionOwnerId);
+                .HasForeignKey<PetCollection>(z => z.CollectionOwnerId);*/
 
-            modelbuilder.Entity<PetCollection>()
+            modelbuilder.Entity<User>()
                 .HasMany(d => d.Pets)
-                .WithOne(p => p.PetCollection)
-                .HasForeignKey(z => z.PetCollectionId);
+                .WithOne(p => p.PetOwner)
+                .HasForeignKey(z => z.PetOwnerId);
 
             modelbuilder.Entity<Transaction>()
                 .HasOne(d => d.Buyer)
@@ -48,6 +48,6 @@ namespace Backend.Data
         public DbSet<Pet> Pets { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Transaction> Transactions { get; set; }
-        public DbSet<PetCollection> PetCollections { get; set; }
+
     }
 }

@@ -40,9 +40,9 @@ namespace Backend.Dtos
 
         public Transaction Transaction { get; set; }
 
-        public PetCollection PetCollection { get; set; }
+        public User PetOwner { get; set; }
 
-        public int PetCollectionId { get; set; }
+        public int PetOwnerId { get; set; }
 
         public bool Sold { get; set; }
     }

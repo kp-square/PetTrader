@@ -27,10 +27,10 @@ namespace Backend.Models
 
         public bool Valid { get; set; }
 
-        public PetCollection Pet_collection { get; set; }
-
         public ICollection<Transaction> Buy_transactions { get; set; }
 
         public ICollection<Transaction> Sell_transactions { get; set; }
+
+        public ICollection<Pet> Pets { get; set; }
     }
 }

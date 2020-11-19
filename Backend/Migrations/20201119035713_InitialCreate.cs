@@ -25,25 +25,6 @@ namespace Backend.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "PetCollections",
-                columns: table => new
-                {
-                    CollectionId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    CollectionOwnerId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PetCollections", x => x.CollectionId);
-                    table.ForeignKey(
-                        name: "FK_PetCollections_Users_CollectionOwnerId",
-                        column: x => x.CollectionOwnerId,
-                        principalTable: "Users",
-                        principalColumn: "UserId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Pets",
                 columns: table => new
                 {
@@ -60,16 +41,17 @@ namespace Backend.Migrations
                     Image = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
                     AddedOn = table.Column<DateTime>(nullable: false),
-                    PetCollectionId = table.Column<int>(nullable: false)
+                    PetOwnerId = table.Column<int>(nullable: false),
+                    Sold = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Pets", x => x.PetId);
                     table.ForeignKey(
-                        name: "FK_Pets_PetCollections_PetCollectionId",
-                        column: x => x.PetCollectionId,
-                        principalTable: "PetCollections",
-                        principalColumn: "CollectionId",
+                        name: "FK_Pets_Users_PetOwnerId",
+                        column: x => x.PetOwnerId,
+                        principalTable: "Users",
+                        principalColumn: "UserId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -108,15 +90,9 @@ namespace Backend.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_PetCollections_CollectionOwnerId",
-                table: "PetCollections",
-                column: "CollectionOwnerId",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Pets_PetCollectionId",
+                name: "IX_Pets_PetOwnerId",
                 table: "Pets",
-                column: "PetCollectionId");
+                column: "PetOwnerId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Transactions_BuyerId",
@@ -133,6 +109,12 @@ namespace Backend.Migrations
                 name: "IX_Transactions_SellerId",
                 table: "Transactions",
                 column: "SellerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_Email",
+                table: "Users",
+                column: "Email",
+                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -142,9 +124,6 @@ namespace Backend.Migrations
 
             migrationBuilder.DropTable(
                 name: "Pets");
-
-            migrationBuilder.DropTable(
-                name: "PetCollections");
 
             migrationBuilder.DropTable(
                 name: "Users");

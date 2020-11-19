@@ -9,3 +9,4 @@ bin/
 .cache/
 *.cache
 *.dll
+TODO.txt
