@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Backend.Migrations
 {
     [DbContext(typeof(PetsContext))]
-    [Migration("20201119035713_InitialCreate")]
+    [Migration("20201120145426_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -79,6 +79,27 @@ namespace Backend.Migrations
                     b.HasIndex("PetOwnerId");
 
                     b.ToTable("Pets");
+                });
+
+            modelBuilder.Entity("Backend.Models.PetImage", b =>
+                {
+                    b.Property<int>("ImageId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ImageName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PetId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ImageId");
+
+                    b.HasIndex("PetId");
+
+                    b.ToTable("PetImages");
                 });
 
             modelBuilder.Entity("Backend.Models.Transaction", b =>
@@ -155,6 +176,15 @@ namespace Backend.Migrations
                     b.HasOne("Backend.Models.User", "PetOwner")
                         .WithMany("Pets")
                         .HasForeignKey("PetOwnerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Backend.Models.PetImage", b =>
+                {
+                    b.HasOne("Backend.Models.Pet", "Pet")
+                        .WithMany("PetImages")
+                        .HasForeignKey("PetId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

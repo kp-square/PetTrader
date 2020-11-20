@@ -79,6 +79,27 @@ namespace Backend.Migrations
                     b.ToTable("Pets");
                 });
 
+            modelBuilder.Entity("Backend.Models.PetImage", b =>
+                {
+                    b.Property<int>("ImageId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ImageName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PetId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ImageId");
+
+                    b.HasIndex("PetId");
+
+                    b.ToTable("PetImages");
+                });
+
             modelBuilder.Entity("Backend.Models.Transaction", b =>
                 {
                     b.Property<int>("TransactionId")
@@ -153,6 +174,15 @@ namespace Backend.Migrations
                     b.HasOne("Backend.Models.User", "PetOwner")
                         .WithMany("Pets")
                         .HasForeignKey("PetOwnerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Backend.Models.PetImage", b =>
+                {
+                    b.HasOne("Backend.Models.Pet", "Pet")
+                        .WithMany("PetImages")
+                        .HasForeignKey("PetId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

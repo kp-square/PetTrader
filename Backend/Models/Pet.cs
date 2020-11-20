@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Backend.Models
@@ -47,6 +48,8 @@ namespace Backend.Models
         public int PetOwnerId { get; set; }
 
         public bool Sold { get; set; }
+
+        public ICollection<PetImage> PetImages { get; set; }
 
     }
 

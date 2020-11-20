@@ -56,6 +56,26 @@ namespace Backend.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "PetImages",
+                columns: table => new
+                {
+                    ImageId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PetId = table.Column<int>(nullable: false),
+                    ImageName = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PetImages", x => x.ImageId);
+                    table.ForeignKey(
+                        name: "FK_PetImages_Pets_PetId",
+                        column: x => x.PetId,
+                        principalTable: "Pets",
+                        principalColumn: "PetId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Transactions",
                 columns: table => new
                 {
@@ -90,6 +110,11 @@ namespace Backend.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_PetImages_PetId",
+                table: "PetImages",
+                column: "PetId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Pets_PetOwnerId",
                 table: "Pets",
                 column: "PetOwnerId");
@@ -119,6 +144,9 @@ namespace Backend.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "PetImages");
+
             migrationBuilder.DropTable(
                 name: "Transactions");
 

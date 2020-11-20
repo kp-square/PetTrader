@@ -12,10 +12,6 @@ namespace Backend.Data
 
         protected override void OnModelCreating(ModelBuilder modelbuilder)
         {
-            /*modelbuilder.Entity<PetCollection>()
-                .HasOne(d => d.CollectionOwner)
-                .WithOne(p => p.Pet_collection)
-                .HasForeignKey<PetCollection>(z => z.CollectionOwnerId);*/
 
             modelbuilder.Entity<User>()
                 .HasMany(d => d.Pets)
@@ -43,11 +39,17 @@ namespace Backend.Data
             modelbuilder.Entity<User>()
                 .HasIndex(u => u.Email)
                 .IsUnique();
+
+            modelbuilder.Entity<PetImage>()
+                .HasOne(d => d.Pet)
+                .WithMany(p => p.PetImages)
+                .HasForeignKey(z => z.PetId);
         }
 
         public DbSet<Pet> Pets { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Transaction> Transactions { get; set; }
+        public DbSet<PetImage> PetImages { get; set; }
 
     }
 }
