@@ -1,5 +1,5 @@
  <div class="card">
-   <button class="card-btn" routerLink='/pet-detail/{{propertyName.id}}'>
+   <button class="card-btn" routerLink='/pet-detail/{{propertyName.petId}}'>
     <div class="image-wrapper">
       <img *ngIf="propertyName.image" class="card-img-top card-img" src="assets/images/{{propertyName.image}}" alt="pets">
       <img *ngIf="!propertyName.image" class="card-img-top card-img" src="assets/images/default.jpg" alt="pets">
@@ -8,6 +8,9 @@
     <h5>{{propertyName.type}}</h5>
     <h5>{{propertyName.price_type}}{{propertyName.price}}</h5>
     <h5>{{propertyName.age}}</h5>
+    <p>
+      {{propertyName|json}}
+    </p>
   </div>
 </button>
 </div>

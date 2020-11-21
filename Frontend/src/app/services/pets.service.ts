@@ -14,23 +14,25 @@ export class PetsService {
   constructor( private http: HttpClient) { }
 
   getAllData(): Observable<IPetAdditional[]>{
-    return this.http.get('data/data.json').pipe(
+    return this.http.get('https://localhost:44316/api/pet').pipe(
       map(
         data => {
+          console.log(data);
           const petList: Array<IPetAdditional> = [];
           for (const id in data){
             if (data.hasOwnProperty(id)){
               petList.push(data[id]);
             }
           }
-          // read data from localstorage and add to petList
-          const localData = JSON.parse(localStorage.getItem('pets'));
-          if (localData){
-            const allPets = petList.concat(localData);
-            return allPets;
-          } else {
-            return petList;
-          }
+          // // read data from localstorage and add to petList
+          // const localData = JSON.parse(localStorage.getItem('pets'));
+          // if (localData){
+          //   const allPets = petList.concat(localData);
+          //   return allPets;
+          // } else {
+          //   return petList;
+          // }
+          return petList;
         }
       )
     );
@@ -61,14 +63,7 @@ export class PetsService {
   }
 
   getPetWithId(id: number): any{
-
-    return this.getAllData().pipe(
-      map(
-        petData => {
-          const dat =  petData.find(pet => pet.id === id);
-          return dat;
-        }
-      )
-    );
+    const dat =  this.http.get('https://localhost:44316/api/pet/' + id);
+    return dat;
   }
 }

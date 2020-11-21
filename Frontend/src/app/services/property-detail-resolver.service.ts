@@ -14,6 +14,8 @@ export class PropertyDetailResolverService implements Resolve<Pet>{
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Pet> | Pet{
     const petId = +route.params['id'];
+    console.log(petId);
+    console.log('worrking');
     return this.petService.getPetWithId(petId)
     .pipe(catchError(
       error => this.router.navigate(['/'])

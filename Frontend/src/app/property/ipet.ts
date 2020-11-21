@@ -1,5 +1,5 @@
 export interface IPet {
-  id: number;
+  petId: number;
   type: string;
   price: number;
   price_type: string;
