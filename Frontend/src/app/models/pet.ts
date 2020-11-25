@@ -1,7 +1,7 @@
 import { IPetAdditional } from './ipet-additional';
 
 export class Pet implements IPetAdditional {
-  id: number;
+  petId: number;
   adopt: boolean;
   type: string;
   breed?: string;

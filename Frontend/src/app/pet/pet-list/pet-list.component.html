@@ -36,12 +36,12 @@
 <div class="row">
   <div
     *ngFor="
-      let Property of properties
+      let Pet of pets
         | filter: filterString:filterAttrib
         | sort: [sortAttrib, sortOrder]
     "
     class="shadow-lg col-sm-4 p-3"
   >
-    <app-property-card [propertyName]="Property"></app-property-card>
+    <app-pet-card [petName]="Pet"></app-pet-card>
   </div>
 </div>

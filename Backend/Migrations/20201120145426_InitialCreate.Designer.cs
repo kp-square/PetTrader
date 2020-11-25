@@ -21,7 +21,7 @@ namespace Backend.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Backend.Models.Pet", b =>
+            modelBuilder.Entity("Backend.Models.Property", b =>
                 {
                     b.Property<int>("PetId")
                         .ValueGeneratedOnAdd()
@@ -171,7 +171,7 @@ namespace Backend.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Backend.Models.Pet", b =>
+            modelBuilder.Entity("Backend.Models.Property", b =>
                 {
                     b.HasOne("Backend.Models.User", "PetOwner")
                         .WithMany("Pets")
@@ -182,7 +182,7 @@ namespace Backend.Migrations
 
             modelBuilder.Entity("Backend.Models.PetImage", b =>
                 {
-                    b.HasOne("Backend.Models.Pet", "Pet")
+                    b.HasOne("Backend.Models.Property", "Property")
                         .WithMany("PetImages")
                         .HasForeignKey("PetId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -197,7 +197,7 @@ namespace Backend.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Backend.Models.Pet", "Pet")
+                    b.HasOne("Backend.Models.Property", "Property")
                         .WithOne("Transaction")
                         .HasForeignKey("Backend.Models.Transaction", "PetId")
                         .OnDelete(DeleteBehavior.Restrict)

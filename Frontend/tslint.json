@@ -92,14 +92,14 @@
           "call-signature": "nospace",
           "index-signature": "nospace",
           "parameter": "nospace",
-          "property-declaration": "nospace",
+          "pet-declaration": "nospace",
           "variable-declaration": "nospace"
         },
         {
           "call-signature": "onespace",
           "index-signature": "onespace",
           "parameter": "onespace",
-          "property-declaration": "onespace",
+          "pet-declaration": "onespace",
           "variable-declaration": "onespace"
         }
       ]
@@ -125,13 +125,13 @@
     "contextual-lifecycle": true,
     "directive-class-suffix": true,
     "no-conflicting-lifecycle": true,
-    "no-host-metadata-property": true,
+    "no-host-metadata-pet": true,
     "no-input-rename": true,
-    "no-inputs-metadata-property": true,
+    "no-inputs-metadata-pet": true,
     "no-output-native": true,
     "no-output-on-prefix": true,
     "no-output-rename": true,
-    "no-outputs-metadata-property": true,
+    "no-outputs-metadata-pet": true,
     "template-banana-in-box": true,
     "template-no-negated-async": true,
     "use-lifecycle-interface": true,

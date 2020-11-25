@@ -9,29 +9,29 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 
 import { AppComponent } from './app.component';
-import { PropertyCardComponent } from './property/property-card/property-card.component';
-import { PropertyListComponent } from './property/property-list/property-list.component';
+import { PetCardComponent } from './pet/pet-card/pet-card.component';
+import { PetListComponent } from './pet/pet-list/pet-list.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { PetsService } from './services/pets.service';
-import { AddPetComponent } from './property/add-pet/add-pet.component';
-import { PetDetailComponent } from './property/pet-detail/pet-detail.component';
-import { PageNotFoundComponent } from './property/page-not-found/page-not-found.component';
+import { AddPetComponent } from './pet/add-pet/add-pet.component';
+import { PetDetailComponent } from './pet/pet-detail/pet-detail.component';
+import { PageNotFoundComponent } from './pet/page-not-found/page-not-found.component';
 import { UserLoginComponent } from './user/user-login/user-login.component';
 import { UserRegisterComponent } from './user/user-register/user-register.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserService } from './services/user.service';
 import { AlertifyService } from './services/alertify.service';
 import { OauthService } from './services/oauth.service';
-import { PropertyDetailResolverService } from './services/property-detail-resolver.service';
+import { PetDetailResolverService } from './services/pet-detail-resolver.service';
 import { FilterPipe } from './pipes/filter.pipe';
 import { SortPipe } from './pipes/sort.pipe';
 
 
 
 const appRoutes: Routes = [
-  {path : '', component : PropertyListComponent},
+  {path : '', component : PetListComponent},
   {path : 'add-pet', component : AddPetComponent},
-  {path : 'pet-detail/:id', component : PetDetailComponent, resolve: {prp: PropertyDetailResolverService}},
+  {path : 'pet-detail/:id', component : PetDetailComponent, resolve: {prp: PetDetailResolverService}},
   {path : 'user/register', component : UserRegisterComponent},
   {path : 'user/login', component : UserLoginComponent},
   {path : '**', component : PageNotFoundComponent}
@@ -40,8 +40,8 @@ const appRoutes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    PropertyCardComponent,
-    PropertyListComponent,
+    PetCardComponent,
+    PetListComponent,
     NavBarComponent,
     AddPetComponent,
     PetDetailComponent,

@@ -13,6 +13,7 @@ export class PetsService {
 
   constructor( private http: HttpClient) { }
 
+
   getAllData(): Observable<IPetAdditional[]>{
     return this.http.get('https://localhost:44316/api/pet').pipe(
       map(
@@ -24,14 +25,6 @@ export class PetsService {
               petList.push(data[id]);
             }
           }
-          // // read data from localstorage and add to petList
-          // const localData = JSON.parse(localStorage.getItem('pets'));
-          // if (localData){
-          //   const allPets = petList.concat(localData);
-          //   return allPets;
-          // } else {
-          //   return petList;
-          // }
           return petList;
         }
       )

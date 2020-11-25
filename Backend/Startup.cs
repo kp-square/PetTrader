@@ -75,6 +75,7 @@ namespace Backend
             app.UseRouting();
 
             app.UseCors(m => m.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+
             app.UseAuthentication();
             app.UseAuthorization();
 

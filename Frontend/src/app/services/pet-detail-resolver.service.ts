@@ -8,7 +8,7 @@ import { PetsService } from './pets.service';
 @Injectable({
   providedIn: 'root'
 })
-export class PropertyDetailResolverService implements Resolve<Pet>{
+export class PetDetailResolverService implements Resolve<Pet>{
 
   constructor( private router: Router, private petService: PetsService) { }
 

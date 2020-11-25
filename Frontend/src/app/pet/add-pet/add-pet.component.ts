@@ -5,7 +5,6 @@ import { TabsetComponent } from 'ngx-bootstrap/tabs';
 import { Pet } from 'src/app/models/pet';
 import { AlertifyService } from 'src/app/services/alertify.service';
 import { PetsService } from 'src/app/services/pets.service';
-import { IPet } from '../ipet';
 
 
 
@@ -148,7 +147,7 @@ export class AddPetComponent implements OnInit {
 
 
   mapPet(): void{
-    this.newPet.id = this.petService.generateId();
+    this.newPet.petId = this.petService.generateId();
     this.newPet.type = this.getType().value;
     this.newPet.adopt = this.getRadio().value === 'adopt' ? true : false;
     this.newPet.breed = this.getBreed().value;

@@ -6,13 +6,13 @@ import { PetsService } from 'src/app/services/pets.service';
 
 
 @Component({
-  selector: 'app-property-list',
-  templateUrl: './property-list.component.html',
-  styleUrls: ['./property-list.component.css']
+  selector: 'app-pet-list',
+  templateUrl: './pet-list.component.html',
+  styleUrls: ['./pet-list.component.css']
 })
-export class PropertyListComponent implements OnInit {
+export class PetListComponent implements OnInit {
   adopting = true;
-  properties: Array<IPetAdditional>;
+  pets: Array<IPetAdditional>;
 
   filterAttrib = '';
   filterString = '';
@@ -26,7 +26,7 @@ export class PropertyListComponent implements OnInit {
   ngOnInit(): void {
     this.petservice.getAllData().subscribe(
       data => {
-        this.properties = data;
+        this.pets = data;
         // console.log(data);
         console.log(this.route.snapshot.url.toString());
       },
