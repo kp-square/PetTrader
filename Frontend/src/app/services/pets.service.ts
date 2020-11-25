@@ -32,13 +32,17 @@ export class PetsService {
   }
 
   addPet(newPet: Pet): boolean{
-    let localData = JSON.parse(localStorage.getItem('pets'));
-    if (localData){
-      localData = [newPet, ...localData];
-    } else{
-      localData = [newPet];
+    // let pet = JSON.stringify(newPet);
+    const fd = new FormData();
+    // tslint:disable-next-line: forin
+    for (const key in newPet){
+      fd.append(key, newPet[key]);
     }
-    localStorage.setItem('pets', JSON.stringify(localData));
+    console.log(fd);
+    this.http.post('https://localhost:44316/api/pet/', fd)
+    .subscribe(x => {
+      console.log(x);
+    });
     return true;
   }
 

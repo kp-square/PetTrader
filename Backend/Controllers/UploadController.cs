@@ -13,9 +13,8 @@ namespace Backend.Controllers
     {
         [HttpPost]
         // api/upload
-        public IActionResult UploadImage()
+        public IActionResult UploadImage(IFormFile file)
         {
-            IFormFile file = Request.Form.Files[0];
             Console.WriteLine(file.Length);
             if (file.Length > 2097152)
             {

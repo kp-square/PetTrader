@@ -3,9 +3,13 @@ using Backend.Data;
 using Backend.Dtos;
 using Backend.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
-
+using System.Globalization;
+using System.Linq;
 
 namespace Backend.Controllers
 {
@@ -38,10 +42,24 @@ namespace Backend.Controllers
         }
 
         // POST: api/Pet
-        [Authorize]
+        // [Authorize]
         [HttpPost]
-        public ActionResult<PetDetailReadDto> WritePet(PetWriteDto pet)
+        public IActionResult WritePet()
         {
+            var data = Request.Form;
+            IFormFile file = data.Files[0];
+            var dict = Request.Form.ToDictionary(x => x.Key, x => x.Value.ToString());
+            DateTime parsed = DateTime.ParseExact(dict["addedOn"].Split("+")[0],
+                                      "ddd MMM dd yyyy HH:mm:ss Z",
+                                       CultureInfo.InvariantCulture);
+
+            dict["addedOn"] = parsed.ToString();
+            var date = System.DateTime.Parse(dict["addedOn"]);
+            string json = JsonConvert.SerializeObject(dict);
+
+            PetWriteDto pet = JsonConvert.DeserializeObject<PetWriteDto>(json);
+            pet.PetOwnerId = 2;
+            var result = new UploadController().UploadImage(file);
             var _pet = _mapper.Map<Pet>(pet);
             _petRepo.CreatePet(_pet);
             _petRepo.saveChanges();

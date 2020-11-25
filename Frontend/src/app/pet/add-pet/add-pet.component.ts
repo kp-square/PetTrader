@@ -144,6 +144,12 @@ export class AddPetComponent implements OnInit {
     return this.addLocation.controls.city as FormControl;
   }
 
+  onSelected(event): any{
+    console.log(event);
+    this.newPet.image = event.target.files[0];
+    console.log(this.newPet.image);
+  }
+
 
 
   mapPet(): void{
