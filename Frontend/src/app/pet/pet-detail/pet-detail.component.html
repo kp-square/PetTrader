@@ -13,7 +13,7 @@
         <ul>
           <div *ngFor = "let img of images" ></div>
           <button *ngFor = "let img of images" class="img-btn" (click)="changeImage($event)">
-            <img src="assets/images/{{img}}" id="{{img}}" class="img-btn-img" alt="tf">
+            <img src="https://localhost:44316/{{img}}" id="{{img}}" class="img-btn-img" alt="tf">
           </button>
           <!-- <button class="col-2" id="img1" (click)="changeImage($event)"> <img class="img-btn" src="{{images[0]}}" alt="img"> </button>
           <button class="col-2" id="img2" (click)="changeImage($event)"> <img class="img-btn" src="{{images[1]}}" alt="img">  </button>

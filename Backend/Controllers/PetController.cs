@@ -54,12 +54,23 @@ namespace Backend.Controllers
                                        CultureInfo.InvariantCulture);
 
             dict["addedOn"] = parsed.ToString();
-            var date = System.DateTime.Parse(dict["addedOn"]);
+            var date = DateTime.Parse(dict["addedOn"]);
             string json = JsonConvert.SerializeObject(dict);
 
             PetWriteDto pet = JsonConvert.DeserializeObject<PetWriteDto>(json);
             pet.PetOwnerId = 2;
             var result = new UploadController().UploadImage(file);
+            var okResult = result as OkObjectResult;
+
+            if (okResult.StatusCode == 200)
+            {
+                pet.Image = okResult.Value.ToString();
+            }
+            else
+            {
+                return BadRequest();
+            }
+
             var _pet = _mapper.Map<Pet>(pet);
             _petRepo.CreatePet(_pet);
             _petRepo.saveChanges();

@@ -33,7 +33,7 @@ namespace Backend.Controllers
                 {
                     file.CopyTo(stream);
                 }
-                return Ok(new { dbPath });
+                return Ok(dbPath);
 
             }
             else
