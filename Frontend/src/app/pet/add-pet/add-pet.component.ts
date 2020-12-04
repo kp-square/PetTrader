@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { TabsetComponent } from 'ngx-bootstrap/tabs';
 import { Pet } from 'src/app/models/pet';
 import { AlertifyService } from 'src/app/services/alertify.service';
+import { JwtServiceService } from 'src/app/services/jwt-service.service';
 import { PetsService } from 'src/app/services/pets.service';
 
 
@@ -22,7 +23,7 @@ export class AddPetComponent implements OnInit {
   formSubmitted: boolean;
 
   constructor(private fb: FormBuilder, private petService: PetsService,
-              private router: Router, private alertify: AlertifyService) { }
+              private router: Router, private alertify: AlertifyService, private jwtDecoder: JwtServiceService) { }
 
   @ViewChild('staticTabs', {static: false})
   staticTabs: TabsetComponent;
@@ -98,8 +99,14 @@ export class AddPetComponent implements OnInit {
 
 
 
-
 // GETTER Methods
+
+  getUserId(): number{
+    const token = localStorage.getItem('jwtToken');
+    const jwt = this.jwtDecoder.decodeToken(token);
+    return +jwt.nameid;
+  }
+
   get basicInfo(): FormGroup{
     return this.addPetForm.controls.basicInfo as FormGroup;
   }
@@ -153,6 +160,7 @@ export class AddPetComponent implements OnInit {
 
 
   mapPet(): void{
+    this.newPet.addedBy = this.getUserId();
     this.newPet.petId = this.petService.generateId();
     this.newPet.type = this.getType().value;
     this.newPet.adopt = this.getRadio().value === 'adopt' ? true : false;
@@ -165,5 +173,4 @@ export class AddPetComponent implements OnInit {
     this.newPet.city = this.getCity().value;
     this.newPet.addedOn = new Date().toString();
   }
-
 }

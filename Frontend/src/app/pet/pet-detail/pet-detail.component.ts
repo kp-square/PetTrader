@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { Pet } from 'src/app/models/pet';
+import { JwtServiceService } from 'src/app/services/jwt-service.service';
 import { PetsService } from 'src/app/services/pets.service';
 
 
@@ -15,8 +16,8 @@ export class PetDetailComponent implements OnInit {
   petImg: string;
   images: Array<string>;
   pet = new Pet();
-  constructor(private route: ActivatedRoute, private router: Router, private petService: PetsService) {
-
+  constructor(private route: ActivatedRoute, private router: Router,
+              private petService: PetsService, private jwtService: JwtServiceService) {
   }
 
   public petId: number;
@@ -43,14 +44,13 @@ export class PetDetailComponent implements OnInit {
   }
 
   assignImages(): void{
-    const path = 'assets/images/';
     if (this.pet.image){
-      this.petImg = path + this.pet.image;
-      console.log(this.petImg);
-      this.images = [this.pet.image, 'default.jpg', 'img-3.jpg', 'img-4.jpg'];
-    } else{
-      this.petImg = 'assets/images/default.jpg';
-      this.images = ['img-2.png', 'default.jpg', 'img-3.jpg', 'img-4.jpg'];
+      this.petImg = this.pet.image;
+      this.images = [this.pet.image];
+
+      if (this.pet.additionalImages){
+        this.images.concat(this.pet.additionalImages);
+      }
     }
   }
 
@@ -59,9 +59,29 @@ export class PetDetailComponent implements OnInit {
   }
 
   changeImage(e): void {
-    const path = 'assets/images/';
-    this.petImg = path + e.target.id;
-    console.log(this.petImg);
+    this.petImg = e.target.id;
   }
 
+  isEditable(): boolean{
+    const userToken = localStorage.getItem('jwtToken');
+    const petJSON = JSON.parse(JSON.stringify(this.pet))
+    if (userToken){
+      const decodedToken = this.jwtService.decodeToken(userToken);
+      if (decodedToken){
+        const bool = decodedToken.nameid === petJSON.petOwnerId.toString();
+        return bool;
+      }
+    }
+    return false;
+  }
+
+  onDelete(): void{
+    if (this.petService.deletePet(this.petId)){
+      this.router.navigate(['/']);
+    }
+  }
+
+  onEdit(): void{
+    this.router.navigate(['/add-pet'])
+  }
 }

@@ -42,7 +42,7 @@ namespace Backend.Controllers
         }
 
         // POST: api/Pet
-        // [Authorize]
+        [Authorize]
         [HttpPost]
         public IActionResult WritePet()
         {
@@ -58,7 +58,7 @@ namespace Backend.Controllers
             string json = JsonConvert.SerializeObject(dict);
 
             PetWriteDto pet = JsonConvert.DeserializeObject<PetWriteDto>(json);
-            pet.PetOwnerId = 2;
+            pet.PetOwnerId = Int32.Parse(dict["addedBy"]);
             var result = new UploadController().UploadImage(file);
             var okResult = result as OkObjectResult;
 

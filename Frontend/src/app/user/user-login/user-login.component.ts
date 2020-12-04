@@ -21,7 +21,7 @@ export class UserLoginComponent implements OnInit {
     const token = this.oauth.authUser(loginForm.value);
     if (token){
       console.log(token);
-      localStorage.setItem('token', token.userName);
+      localStorage.setItem('jwtToken', token.userName);
       this.alertify.success('logged in successfully');
       this.router.navigate(['/']);
     }

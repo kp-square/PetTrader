@@ -9,7 +9,7 @@
       <li class="nav-item">
         <a class="nav-link" [routerLinkActiveOptions]="{exact:true}" routerLinkActive="active" routerLink="/">Buy</a>
       </li>
-      <li class="nav-item">
+      <li *ngIf = "loggedin()" class="nav-item">
         <a class="nav-link" [routerLinkActiveOptions]="{exact:true}" routerLinkActive="active" routerLink="/add-pet">Sell</a>
       </li>
       <li class="nav-item">

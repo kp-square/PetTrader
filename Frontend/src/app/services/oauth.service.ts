@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -5,13 +6,19 @@ import { Injectable } from '@angular/core';
 })
 export class OauthService {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
-  authUser(user: any): any{
-    let userArray = [];
-    if (localStorage.getItem('users')){
-      userArray = JSON.parse(localStorage.getItem('users'));
-    }
-    return userArray.find(p => p.emailId === user.emailId && p.password === user.password);
+  authUser(loginForm: any): any{
+    return this.http.post('https://localhost:44316/api/token', {email: loginForm.emailId, password : loginForm.password}).subscribe(
+      token => {
+          const data = JSON.parse(JSON.stringify(token));
+          localStorage.setItem('jwtToken', data.access_Token);
+          return true;
+      },
+      error => {
+        console.log('fuck it', error);
+        return false;
+      }
+    );
   }
 }

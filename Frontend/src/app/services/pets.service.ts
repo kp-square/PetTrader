@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaderResponse, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { IPetAdditional } from '../models/ipet-additional';
@@ -39,7 +39,9 @@ export class PetsService {
       fd.append(key, newPet[key]);
     }
     console.log(fd);
-    this.http.post('https://localhost:44316/api/pet/', fd)
+    const token = localStorage.getItem('jwtToken');
+    const header = new HttpHeaders().set('Authorization', 'Bearer ' + token);
+    this.http.post('https://localhost:44316/api/pet/', fd, { headers: header})
     .subscribe(x => {
       console.log(x);
     });
@@ -62,5 +64,18 @@ export class PetsService {
   getPetWithId(id: number): any{
     const dat =  this.http.get('https://localhost:44316/api/pet/' + id);
     return dat;
+  }
+
+  deletePet(id: number): any{
+    const token = localStorage.getItem('jwtToken');
+    const header = new HttpHeaders().set('Authorization', 'Bearer ' + token);
+    return this.http.delete('https://localhost:44316/api/pet/'+id, {headers: header, observe: 'response'}).subscribe(
+      response => {
+        if (response.status >= 400){
+          return false;
+        }
+        return true;
+      }
+    );
   }
 }

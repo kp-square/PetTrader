@@ -13,7 +13,6 @@ namespace Backend.Data
         }
         public bool CheckPassword(User user, string Password)
         {
-
             bool verified = BCrypt.Net.BCrypt.Verify(Password, user.Password);
             return verified;
         }

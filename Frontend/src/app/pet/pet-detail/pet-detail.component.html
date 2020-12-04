@@ -1,4 +1,13 @@
-<button (click)="goBack()" class="btn btn-primary">back</button>
+<div style="display: flex; justify-content: space-between;">
+  <div>
+    <button (click)="goBack()" class="btn btn-primary">back</button>
+  </div>
+  <div *ngIf = "isEditable()">
+    <button (click)="onEdit()" class="btn btn-secondary" >Edit</button>
+  <button (click)="onDelete()" class="btn btn-danger" style="margin-left: 20px;">Delete</button>
+  </div>
+</div>
+
 <div class="card col-12">
   <div class="row">
     <div class="col-sm-6">
@@ -7,7 +16,7 @@
         <h5>Kathmandu, Nepal</h5>
       </div>
       <div>
-        <img class="pet-detail-img" src="https://localhost:44316/{{images[0]}}" alt="whatever" />
+        <img class="pet-detail-img" src="https://localhost:44316/{{petImg}}" alt="whatever" />
       </div>
       <div>
         <ul>
@@ -15,10 +24,6 @@
           <button *ngFor = "let img of images" class="img-btn" (click)="changeImage($event)">
             <img src="https://localhost:44316/{{img}}" id="{{img}}" class="img-btn-img" alt="tf">
           </button>
-          <!-- <button class="col-2" id="img1" (click)="changeImage($event)"> <img class="img-btn" src="{{images[0]}}" alt="img"> </button>
-          <button class="col-2" id="img2" (click)="changeImage($event)"> <img class="img-btn" src="{{images[1]}}" alt="img">  </button>
-          <button class="col-2" id="img3" (click)="changeImage($event)"> <img class="img-btn" src="{{images[2]}}" alt="img">  </button>
-          <button class="col-2" id="img4" (click)="changeImage($event)"> <img class="img-btn" src="{{images[3]}}" alt="img">  </button> -->
         </ul>
       </div>
     </div>

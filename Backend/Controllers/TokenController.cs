@@ -24,11 +24,14 @@ namespace Backend.Controllers
 
         /*[Route("/token")]*/
         [HttpPost]
-        public ActionResult Create(string Email, string Password)
+        public ActionResult Create(Dictionary<string, string> obj)
         {
+
+            string Email = obj["email"];
+            string Password = obj["password"];
             if (IsValidEmailAndPassword(Email, Password))
             {
-                return new ObjectResult(GenerateToken(Email));
+                return new OkObjectResult(GenerateToken(Email));
             }
             else
             {
@@ -39,6 +42,10 @@ namespace Backend.Controllers
         private bool IsValidEmailAndPassword(string Email, string Password)
         {
             var user = _userRepo.GetUserByEmail(Email);
+            if (user == null)
+            {
+                return false;
+            }
 
             return _userRepo.CheckPassword(user, Password);
         }
@@ -48,8 +55,8 @@ namespace Backend.Controllers
             var user = _userRepo.GetUserByEmail(Email);
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, Email),
-                new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString()),
+                new Claim(JwtRegisteredClaimNames.NameId, user.UserId.ToString()),
+                new Claim(JwtRegisteredClaimNames.GivenName, user.UserName),
                 new Claim(JwtRegisteredClaimNames.Nbf, new DateTimeOffset(DateTime.Now).ToUnixTimeSeconds().ToString()),
                 new Claim(JwtRegisteredClaimNames.Exp, new DateTimeOffset(DateTime.Now.AddDays(1)).ToUnixTimeSeconds().ToString())
             };

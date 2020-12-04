@@ -10,3 +10,7 @@ bin/
 *.cache
 *.dll
 TODO.txt
+*.jpg
+*.png
+Backend/Resources/Images/
+*.txt
