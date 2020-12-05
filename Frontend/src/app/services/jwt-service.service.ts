@@ -20,8 +20,6 @@ export class JwtServiceService {
 
   isTokenExpired(token: any): boolean{
     const timeNow = Math.floor(Date.now() / 1000);
-    console.log(timeNow);
-    console.log(token.exp);
     if (token.exp <= timeNow) {
       return true;
     }

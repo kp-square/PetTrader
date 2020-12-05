@@ -2,6 +2,7 @@
 using Backend.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,6 +11,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.IO;
+using System.Linq;
 using System.Text;
 
 namespace Backend
@@ -26,6 +28,7 @@ namespace Backend
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             services.AddControllers();
@@ -61,7 +64,7 @@ namespace Backend
                 }
               );
 
-            services.AddCors();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -72,12 +75,21 @@ namespace Backend
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseCors(m => m.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+
             app.UseHttpsRedirection();
 
             // using Microsoft.Extensions.FileProviders;
             // using System.IO;
             app.UseStaticFiles(new StaticFileOptions
             {
+
+                OnPrepareResponse = ctx =>
+                {
+                    ctx.Context.Response.Headers.Append("Access-Control-Allow-Origin", "*");
+                    ctx.Context.Response.Headers.Append("Access-Control-Allow-Headers",
+                      "Origin, X-Requested-With, Content-Type, Accept");
+                },
                 FileProvider = new PhysicalFileProvider(
                     Path.Combine(env.ContentRootPath, "Resources")),
                 RequestPath = "/resources"
@@ -85,7 +97,7 @@ namespace Backend
 
             app.UseRouting();
 
-            app.UseCors(m => m.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+
 
             app.UseAuthentication();
             app.UseAuthorization();

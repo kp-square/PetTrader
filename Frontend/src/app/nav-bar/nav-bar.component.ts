@@ -23,10 +23,7 @@ export class NavBarComponent implements OnInit {
     if (token){
       const decodedToken = this.jwtDecoder.decodeToken(token);
       if (decodedToken){
-        console.log(decodedToken);
         this.loggedInUser = decodedToken.given_name;
-        console.log(this.loggedInUser);
-        console.log('wtf');
       }
       else{
         this.loggedInUser = '';

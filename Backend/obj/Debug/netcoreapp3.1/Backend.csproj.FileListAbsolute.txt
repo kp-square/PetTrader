@@ -133,5 +133,9 @@ D:\dev\projectArj\Backend\bin\Debug\netcoreapp3.1\zh-Hans\Microsoft.CodeAnalysis
 D:\dev\projectArj\Backend\bin\Debug\netcoreapp3.1\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
 D:\dev\projectArj\Backend\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 D:\dev\projectArj\Backend\bin\Debug\netcoreapp3.1\BCrypt.Net-Next.dll
+D:\dev\projectArj\Backend\bin\Debug\netcoreapp3.1\System.Web.Cors.dll
+D:\dev\projectArj\Backend\bin\Debug\netcoreapp3.1\Microsoft.Owin.dll
+D:\dev\projectArj\Backend\bin\Debug\netcoreapp3.1\Microsoft.Owin.Cors.dll
+D:\dev\projectArj\Backend\bin\Debug\netcoreapp3.1\Owin.dll
 D:\dev\projectArj\Backend\obj\Debug\netcoreapp3.1\Backend.csproj.CoreCompileInputs.cache
 D:\dev\projectArj\Backend\obj\Debug\netcoreapp3.1\Backend.MvcApplicationPartsAssemblyInfo.cache

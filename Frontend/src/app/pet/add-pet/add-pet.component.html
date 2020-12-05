@@ -132,16 +132,19 @@
             <tab heading="Add Photos" formGroupName="addPhotos">
               <hr />
               <div class="form-group col-12">
-                <label for="image" class="form-label"
+                <label *ngIf="isAddMode" for="image" class="form-label"
                   >Upload Thumbnail Image</label
+                >
+                <label *ngIf="!isAddMode" for="image" class="form-label"
+                  >Change Image</label
                 >
                 <input
                   type="file"
                   accept="image/*"
                   class="form-control"
-                  formControlName="petImage"
                   (change)="onSelected($event)"
                 />
+                <app-preview-img [imgPath]="petImagePath"></app-preview-img>
               </div>
 
               <div class="form-group col-12">
@@ -151,7 +154,7 @@
                 <input
                   type="file"
                   accept="image/*"
-                  class="form-control"
+                  class="form-control sec-image-upload"
                   formControlName="extraImages"
                 />
               </div>
@@ -167,7 +170,8 @@
                 <button type="reset" class="btn btn-secondary ml-4">
                   Cancel
                 </button>
-                <button type="submit" class="btn btn-primary ml-4">Add</button>
+                <button *ngIf="isAddMode" type="submit" class="btn btn-primary ml-4">Add</button>
+                <button *ngIf="!isAddMode" type="submit" class="btn btn-primary ml-4">Update</button>
               </div>
             </tab>
           </tabset>

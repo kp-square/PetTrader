@@ -31,7 +31,7 @@ export class PetsService {
     );
   }
 
-  addPet(newPet: Pet): boolean{
+  addPet(newPet: Pet): any{
     // let pet = JSON.stringify(newPet);
     const fd = new FormData();
     // tslint:disable-next-line: forin
@@ -41,11 +41,13 @@ export class PetsService {
     console.log(fd);
     const token = localStorage.getItem('jwtToken');
     const header = new HttpHeaders().set('Authorization', 'Bearer ' + token);
-    this.http.post('https://localhost:44316/api/pet/', fd, { headers: header})
-    .subscribe(x => {
-      console.log(x);
+    return this.http.post('https://localhost:44316/api/pet/', fd, { headers: header, observe: 'response'})
+    .subscribe(response => {
+      if (response.status <= 400){
+        return true;
+      }
+      return false;
     });
-    return true;
   }
 
   generateId(): number{
@@ -66,10 +68,29 @@ export class PetsService {
     return dat;
   }
 
+  updatePet(id: number, newPet: Pet): any{
+    // let pet = JSON.stringify(newPet);
+    const fd = new FormData();
+    // tslint:disable-next-line: forin
+    for (const key in newPet){
+      fd.append(key, newPet[key]);
+    }
+    const token = localStorage.getItem('jwtToken');
+    const header = new HttpHeaders().set('Authorization', 'Bearer ' + token);
+    return this.http.put('https://localhost:44316/api/pet/' + id, fd, {headers: header, observe: 'response'}).subscribe(
+      response => {
+        if (response.status <= 400){
+          return true;
+        }
+        return false;
+      }
+    );
+  }
+
   deletePet(id: number): any{
     const token = localStorage.getItem('jwtToken');
     const header = new HttpHeaders().set('Authorization', 'Bearer ' + token);
-    return this.http.delete('https://localhost:44316/api/pet/'+id, {headers: header, observe: 'response'}).subscribe(
+    return this.http.delete('https://localhost:44316/api/pet/' + id, {headers: header, observe: 'response'}).subscribe(
       response => {
         if (response.status >= 400){
           return false;

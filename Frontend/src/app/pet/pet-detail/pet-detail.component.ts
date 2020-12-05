@@ -30,17 +30,6 @@ export class PetDetailComponent implements OnInit {
         this.assignImages();
       }
     );
-
-
-
-    // this.petService.getPetWithId(this.petId)
-    //   .subscribe((arg: Pet) => {
-    //     this.pet = arg;
-    //     console.log(this.pet);
-    //     this.assignImages();
-    //   }, error => {
-    //     this.router.navigate(['/']);
-    //   });
   }
 
   assignImages(): void{
@@ -82,6 +71,6 @@ export class PetDetailComponent implements OnInit {
   }
 
   onEdit(): void{
-    this.router.navigate(['/add-pet'])
+    this.router.navigate([`/edit-pet/${this.petId}`]);
   }
 }

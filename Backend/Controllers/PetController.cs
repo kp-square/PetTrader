@@ -5,10 +5,12 @@ using Backend.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Net.Http.Headers;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 
 namespace Backend.Controllers
@@ -46,6 +48,7 @@ namespace Backend.Controllers
         [HttpPost]
         public IActionResult WritePet()
         {
+
             var data = Request.Form;
             IFormFile file = data.Files[0];
             var dict = Request.Form.ToDictionary(x => x.Key, x => x.Value.ToString());
@@ -54,7 +57,7 @@ namespace Backend.Controllers
                                        CultureInfo.InvariantCulture);
 
             dict["addedOn"] = parsed.ToString();
-            var date = DateTime.Parse(dict["addedOn"]);
+
             string json = JsonConvert.SerializeObject(dict);
 
             PetWriteDto pet = JsonConvert.DeserializeObject<PetWriteDto>(json);
@@ -80,16 +83,62 @@ namespace Backend.Controllers
         // PUT: api/Pet/5
         [Authorize]
         [HttpPut("{id}")]
-        public ActionResult UpdatePet(int id, PetWriteDto updated)
+        public ActionResult UpdatePet()
         {
+            var accessToken = Request.Headers[HeaderNames.Authorization].ToString().Split(" ").Last<string>();
+            var handler = new JwtSecurityTokenHandler();
+            var jsonToken = handler.ReadToken(accessToken);
+            var tokenS = handler.ReadToken(accessToken) as JwtSecurityToken;
+            var nameid = tokenS.Claims.First(claim => claim.Type == "nameid").Value;
+
+            var id = Int32.Parse(Request.Path.Value.Split("/").Last<string>());
+
             var toBeUpdated = _petRepo.GetPetById(id);
+
             if (toBeUpdated == null)
             {
                 return NotFound();
             }
-            _mapper.Map(updated, toBeUpdated);
+
+            if (toBeUpdated.PetOwnerId.ToString() != nameid)
+            {
+                return Unauthorized();
+            }
+
+            var data = Request.Form;
+            var dict = Request.Form.ToDictionary(x => x.Key, x => x.Value.ToString());
+
+
+            dict["addedOn"] = toBeUpdated.AddedOn.ToString();
+
+            string json = JsonConvert.SerializeObject(dict);
+
+            PetWriteDto pet = JsonConvert.DeserializeObject<PetWriteDto>(json);
+            pet.PetOwnerId = Int32.Parse(dict["addedBy"]);
+            if (data.Files.Count() > 0)
+            {
+                IFormFile file = data.Files[0];
+                var result = new UploadController().UploadImage(file);
+                var okResult = result as OkObjectResult;
+
+                if (okResult.StatusCode == 200)
+                {
+                    pet.Image = okResult.Value.ToString();
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            else
+            {
+                pet.Image = toBeUpdated.Image;
+            }
+
+
+            _mapper.Map(pet, toBeUpdated);
             _petRepo.UpdatePet(toBeUpdated);
-            _petRepo.saveChanges();
+            var boool = _petRepo.saveChanges();
             return NoContent();
 
         }
@@ -99,10 +148,22 @@ namespace Backend.Controllers
         [HttpDelete("{id}")]
         public ActionResult Delete(int id)
         {
+            var accessToken = Request.Headers[HeaderNames.Authorization].ToString().Split(" ").Last<string>();
+            var handler = new JwtSecurityTokenHandler();
+            var jsonToken = handler.ReadToken(accessToken);
+            var tokenS = handler.ReadToken(accessToken) as JwtSecurityToken;
+            var nameid = tokenS.Claims.First(claim => claim.Type == "nameid").Value;
+
             var toBeDeleted = _petRepo.GetPetById(id);
+
             if (toBeDeleted == null)
             {
                 return NotFound();
+            }
+
+            if (toBeDeleted.PetOwnerId.ToString() != nameid)
+            {
+                return Unauthorized();
             }
 
             _petRepo.DeletePet(toBeDeleted);

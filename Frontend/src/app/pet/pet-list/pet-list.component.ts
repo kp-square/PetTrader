@@ -27,14 +27,11 @@ export class PetListComponent implements OnInit {
     this.petservice.getAllData().subscribe(
       data => {
         this.pets = data;
-        // console.log(data);
-        console.log(this.route.snapshot.url.toString());
       },
       error => {
         console.log(error);
       }
     );
-
     this.initializeForm();
   }
 
@@ -50,7 +47,6 @@ export class PetListComponent implements OnInit {
 
 
   onFilter(): void{
-    console.log(this.filterForm.value);
     this.filterAttrib = this.filterForm.value.filterBy;
     this.filterString = this.filterForm.value.filterName;
     this.sortAttrib = this.filterForm.value.sortBy;

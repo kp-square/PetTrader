@@ -25,12 +25,14 @@ import { OauthService } from './services/oauth.service';
 import { PetDetailResolverService } from './services/pet-detail-resolver.service';
 import { FilterPipe } from './pipes/filter.pipe';
 import { SortPipe } from './pipes/sort.pipe';
+import { PreviewImgComponent } from './pet/preview-img/preview-img.component';
 
 
 
 const appRoutes: Routes = [
   {path : '', component : PetListComponent},
   {path : 'add-pet', component : AddPetComponent},
+  {path: 'edit-pet/:id', component: AddPetComponent},
   {path : 'pet-detail/:id', component : PetDetailComponent, resolve: {prp: PetDetailResolverService}},
   {path : 'user/register', component : UserRegisterComponent},
   {path : 'user/login', component : UserLoginComponent},
@@ -49,7 +51,8 @@ const appRoutes: Routes = [
     UserLoginComponent,
     UserRegisterComponent,
     FilterPipe,
-    SortPipe
+    SortPipe,
+    PreviewImgComponent,
   ],
   imports: [
     BrowserModule,
