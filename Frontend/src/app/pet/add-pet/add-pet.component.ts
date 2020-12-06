@@ -24,7 +24,7 @@ export class AddPetComponent implements OnInit {
   petImagePath: string;
 
   constructor(private fb: FormBuilder, private petService: PetsService, private route: ActivatedRoute,
-    private router: Router, private alertify: AlertifyService, private jwtDecoder: JwtServiceService) { }
+              private router: Router, private alertify: AlertifyService, private jwtDecoder: JwtServiceService) { }
 
   @ViewChild('staticTabs', { static: false })
   staticTabs: TabsetComponent;
@@ -51,8 +51,8 @@ export class AddPetComponent implements OnInit {
 
 
   ngOnInit(): void {
-
-    this.id = this.route.snapshot.params['id'];
+    this.checkAuth();
+    this.id = this.route.snapshot.params.id;
     this.isAddMode = !this.id;
     this.createPetAddForm();
 
@@ -229,7 +229,22 @@ export class AddPetComponent implements OnInit {
   }
 
   redirectTo(uri: string): void{
-    this.router.navigateByUrl('/', {skipLocationChange: true}).then(()=>
+    this.router.navigateByUrl('/', {skipLocationChange: true}).then(() =>
     this.router.navigate([uri]));
+ }
+
+ checkAuth(): void{
+  const token = localStorage.getItem('jwtToken');
+  if (token){
+    const decodedToken = this.jwtDecoder.decodeToken(token);
+    if (decodedToken){
+      return;
+    }
+    else{
+      this.router.navigate(['/user/login']);
+    }
+  }else{
+    this.router.navigate(['/user/login']);
+  }
  }
 }
