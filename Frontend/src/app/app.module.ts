@@ -26,6 +26,7 @@ import { PetDetailResolverService } from './services/pet-detail-resolver.service
 import { FilterPipe } from './pipes/filter.pipe';
 import { SortPipe } from './pipes/sort.pipe';
 import { PreviewImgComponent } from './pet/preview-img/preview-img.component';
+import { DashboardComponent } from './user/dashboard/dashboard.component';
 
 
 
@@ -36,6 +37,7 @@ const appRoutes: Routes = [
   {path : 'pet-detail/:id', component : PetDetailComponent, resolve: {prp: PetDetailResolverService}},
   {path : 'user/register', component : UserRegisterComponent},
   {path : 'user/login', component : UserLoginComponent},
+  {path : 'dashboard', component : DashboardComponent, runGuardsAndResolvers : 'always'},
   {path : '**', component : PageNotFoundComponent}
 ];
 
@@ -53,6 +55,7 @@ const appRoutes: Routes = [
     FilterPipe,
     SortPipe,
     PreviewImgComponent,
+    DashboardComponent,
   ],
   imports: [
     BrowserModule,
@@ -64,12 +67,16 @@ const appRoutes: Routes = [
     BrowserAnimationsModule,
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
+    RouterModule.forRoot(appRoutes, {onSameUrlNavigation: 'reload'})
   ],
   providers: [
     PetsService,
     UserService,
     AlertifyService,
     OauthService
+  ],
+  exports: [
+    RouterModule,
   ],
   bootstrap: [AppComponent]
 })

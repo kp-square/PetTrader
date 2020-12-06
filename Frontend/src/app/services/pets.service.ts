@@ -99,4 +99,25 @@ export class PetsService {
       }
     );
   }
+
+  getPetsByUserId(id: number): IPetAdditional[]{
+    const petList: Array<IPetAdditional> = [];
+    const token = localStorage.getItem('jwtToken');
+    const header = new HttpHeaders().set('Authorization', 'Bearer ' + token);
+    const url = 'https://localhost:44316/dashboard/' + id;
+    console.log(url);
+    this.http.get(url, {headers: header, observe: 'response'}).subscribe(
+      res => {
+        if (res.status <= 400){
+          const data = res.body;
+          for (const id in data){
+            if (data.hasOwnProperty(id)){
+              petList.push(data[id]);
+            }
+        }
+        }
+      }
+    );
+    return petList;
+  }
 }

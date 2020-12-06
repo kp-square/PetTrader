@@ -1,0 +1,13 @@
+<div>
+  <h2>Your Pets</h2>
+</div>
+<div class="row">
+  <div
+    *ngFor="
+      let Pet of pets
+    "
+    class="shadow-lg col-sm-4 p-3"
+  >
+    <app-pet-card [petName]="Pet"></app-pet-card>
+  </div>
+</div>

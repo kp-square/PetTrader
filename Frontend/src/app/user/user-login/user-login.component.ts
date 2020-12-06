@@ -20,7 +20,6 @@ export class UserLoginComponent implements OnInit {
   onSubmit(loginForm: NgForm): void{
     const token = this.oauth.authUser(loginForm.value);
     if (token){
-      console.log(token);
       localStorage.setItem('jwtToken', token.userName);
       this.alertify.success('logged in successfully');
       this.router.navigate(['/']);

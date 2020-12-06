@@ -38,4 +38,14 @@ export class NavBarComponent implements OnInit {
     this.router.navigate(['/']);
   }
 
+  goToDashboard(): void{
+    const token = localStorage.getItem('jwtToken');
+    if(token){
+      const decodedToken = this.jwtDecoder.decodeToken(token);
+      if (decodedToken){
+        this.router.navigate(['/dashboard']);
+      }
+    }
+  }
+
 }

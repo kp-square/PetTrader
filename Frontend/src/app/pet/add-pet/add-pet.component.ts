@@ -127,7 +127,8 @@ export class AddPetComponent implements OnInit {
         const success = this.petService.addPet(this.newPet);
         if (success) {
           this.alertify.success('new pet has been added');
-          this.router.navigate(['/']);
+          // this.router.navigate(['/dashboard']);
+          this.redirectTo('/dashboard');
         }else{
           this.alertify.error('Sorry, pet could not be added');
         }
@@ -136,7 +137,8 @@ export class AddPetComponent implements OnInit {
         const success = this.petService.updatePet(this.id, this.newPet);
         if (success) {
           this.alertify.success('pet has been updated');
-          this.router.navigate(['/']);
+          // this.router.navigate(['/dashboard']);
+          this.redirectTo('/dashboard');
         }else{
           this.alertify.error('Sorry, pet could not be updated');
         }
@@ -225,4 +227,9 @@ export class AddPetComponent implements OnInit {
     this.newPet.city = this.getCity().value;
     this.newPet.addedOn = new Date().toString();
   }
+
+  redirectTo(uri: string): void{
+    this.router.navigateByUrl('/', {skipLocationChange: true}).then(()=>
+    this.router.navigate([uri]));
+ }
 }
