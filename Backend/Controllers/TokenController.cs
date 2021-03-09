@@ -31,11 +31,11 @@ namespace Backend.Controllers
             string Password = obj["password"];
             if (IsValidEmailAndPassword(Email, Password))
             {
-                return new OkObjectResult(GenerateToken(Email));
+                return Ok(GenerateToken(Email));
             }
             else
             {
-                return BadRequest("Either email or password is invalid");
+                return Unauthorized("Either email or password is invalid");
             }
         }
 

@@ -17,15 +17,21 @@ export class UserLoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onSubmit(loginForm: NgForm): void{
-    const token = this.oauth.authUser(loginForm.value);
-    if (token){
-      localStorage.setItem('jwtToken', token.userName);
-      this.alertify.success('logged in successfully');
-      this.router.navigate(['/']);
-    }
-    else{
-      this.alertify.error('Error! Either email or password is wrong. Try again.');
-    }
+  onSubmit(loginForm: NgForm): void {
+    const status = this.oauth.authUser(loginForm.value);
+    status.subscribe({
+      next: response => {
+        if (response.status >= 200 && response.status < 400) {
+          const token = JSON.parse(JSON.stringify(response.body));
+          localStorage.setItem('jwtToken', token.access_Token);
+          this.alertify.success('logged in successfully');
+          this.router.navigate(['/']);
+        }
+      },
+      error: error => {
+        console.log(error.message)
+        this.alertify.error('Error! Either email or password is wrong. Try again.')
+      }
+    })
   }
 }

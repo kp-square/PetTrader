@@ -66,11 +66,16 @@ export class PetDetailComponent implements OnInit {
 
   onDelete(): void{
     if (this.petService.deletePet(this.petId)){
-      this.router.navigate(['/']);
+      this.redirectTo('/');
     }
   }
 
   onEdit(): void{
     this.router.navigate([`/edit-pet/${this.petId}`]);
   }
+
+  redirectTo(uri: string): void{
+    this.router.navigateByUrl('/', {skipLocationChange: true}).then(() =>
+    this.router.navigate([uri]));
+ }
 }

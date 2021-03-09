@@ -1,5 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -8,17 +10,11 @@ export class OauthService {
 
   constructor(private http: HttpClient) { }
 
-  authUser(loginForm: any): any{
-    return this.http.post('https://localhost:44316/api/token', {email: loginForm.emailId, password : loginForm.password}).subscribe(
-      token => {
-          const data = JSON.parse(JSON.stringify(token));
-          localStorage.setItem('jwtToken', data.access_Token);
-          return true;
-      },
-      error => {
-        console.log('fuck it', error);
-        return false;
-      }
-    );
+  authUser(loginForm: any): Observable<any> {
+    return this.http.post('https://localhost:44316/api/token', { email: loginForm.emailId, password: loginForm.password }, { observe: 'response' })
+      .pipe(catchError(this.errorHandler))
+  }
+  errorHandler(error: HttpErrorResponse) {
+    return Observable.throw(error.message || "server error.");
   }
 }

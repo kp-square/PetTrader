@@ -1,6 +1,5 @@
 D:\dev\projectArj\Backend\bin\Debug\netcoreapp3.1\appsettings.Development.json
 D:\dev\projectArj\Backend\bin\Debug\netcoreapp3.1\appsettings.json
-D:\dev\projectArj\Backend\bin\Debug\netcoreapp3.1\Properties\launchSettings.json
 D:\dev\projectArj\Backend\bin\Debug\netcoreapp3.1\Backend.exe
 D:\dev\projectArj\Backend\bin\Debug\netcoreapp3.1\Backend.deps.json
 D:\dev\projectArj\Backend\bin\Debug\netcoreapp3.1\Backend.runtimeconfig.json
@@ -139,3 +138,4 @@ D:\dev\projectArj\Backend\bin\Debug\netcoreapp3.1\Microsoft.Owin.Cors.dll
 D:\dev\projectArj\Backend\bin\Debug\netcoreapp3.1\Owin.dll
 D:\dev\projectArj\Backend\obj\Debug\netcoreapp3.1\Backend.csproj.CoreCompileInputs.cache
 D:\dev\projectArj\Backend\obj\Debug\netcoreapp3.1\Backend.MvcApplicationPartsAssemblyInfo.cache
+D:\dev\projectArj\Backend\obj\Debug\netcoreapp3.1\scopedcss\bundle\Backend.styles.css
