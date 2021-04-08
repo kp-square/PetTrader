@@ -1,4 +1,4 @@
-As name suggest PetTrader is an application to trade pets online.
+As the name suggests PetTrader is an application to trade pets online.
 The frontend of the application is built using Angular 10 and 
 backend is a Web API built using ASP.Net core 3.1 with SQL
 server database.
